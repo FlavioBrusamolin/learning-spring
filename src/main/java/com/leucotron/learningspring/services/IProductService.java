@@ -1,6 +1,5 @@
 package com.leucotron.learningspring.services;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +11,8 @@ public interface IProductService {
     
     public Optional<JProduct> find(Long id);
     
-    public String store(JProduct product);
+    public JProduct store(JProduct product);
     
     public String delete(Long id);
-    
-//    public String update(Long id, JProduct newProduct);
     
 }

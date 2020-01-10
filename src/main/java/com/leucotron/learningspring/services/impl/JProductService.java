@@ -12,7 +12,7 @@ import com.leucotron.learningspring.services.IProductService;
 
 @Service
 public class JProductService implements IProductService {
-    
+
     @Autowired
     IProductRepository productRepository;
 
@@ -27,9 +27,8 @@ public class JProductService implements IProductService {
     }
 
     @Override
-    public String store(JProduct product) {
-        productRepository.save(product);
-        return "Successful registration";
+    public JProduct store(JProduct product) {
+        return productRepository.save(product);
     }
 
     @Override
@@ -38,15 +37,4 @@ public class JProductService implements IProductService {
         return "Successful deletion";
     }
 
-//    @Override
-//    public String update(Long id, JProduct newProduct) {
-//        Optional<JProduct> product = productRepository.findById(id);
-//        
-//        if(newProduct.getId() != null) {
-//        }
-//        
-//        productRepository.save(product);
-//        return "Successful update";
-//    }
-    
 }

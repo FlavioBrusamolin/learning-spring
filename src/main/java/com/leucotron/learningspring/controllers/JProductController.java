@@ -42,7 +42,7 @@ public class JProductController {
                     .badRequest()
                     .body("Product not found");
         }
-        
+
         return ResponseEntity.ok(product.get());
     }
 
@@ -55,6 +55,12 @@ public class JProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
+        if (!productService.find(id).isPresent()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Product not found");
+        }
+
         return ResponseEntity.ok(productService.delete(id));
     }
 

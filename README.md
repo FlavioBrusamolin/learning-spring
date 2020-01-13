@@ -1,2 +1,2 @@
 # learning-spring
-A very simple API to learning Spring Boot Framework.
+A simple API to learning Spring Boot Framework.

@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import com.leucotron.learningspring.entities.JProduct;
 
+/**
+ *
+ * @author flavio
+ */
 public interface IProductService {
     
     public List<JProduct> list();

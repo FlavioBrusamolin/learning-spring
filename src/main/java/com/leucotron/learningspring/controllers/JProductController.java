@@ -21,6 +21,10 @@ import org.springframework.http.ResponseEntity;
 import com.leucotron.learningspring.entities.JProduct;
 import com.leucotron.learningspring.services.IProductService;
 
+/**
+ *
+ * @author flavio
+ */
 @RestController
 @RequestMapping(value = "/api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
 public class JProductController {

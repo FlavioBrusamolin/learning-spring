@@ -10,6 +10,10 @@ import com.leucotron.learningspring.entities.JProduct;
 import com.leucotron.learningspring.repositories.IProductRepository;
 import com.leucotron.learningspring.services.IProductService;
 
+/**
+ *
+ * @author flavio
+ */
 @Service
 public class JProductService implements IProductService {
 

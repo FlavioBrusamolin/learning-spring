@@ -36,7 +36,7 @@ public class JProduct implements Serializable {
     
     @NotNull
     @PositiveOrZero
-    private BigDecimal quantity;
+    private Long quantity;
     
     @NotNull
     @PositiveOrZero
@@ -58,11 +58,11 @@ public class JProduct implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 

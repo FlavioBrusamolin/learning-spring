@@ -4,9 +4,9 @@
 */
 
 CREATE TABLE product ( 
-    id bigint PRIMARY KEY NOT NULL, 
+    id serial PRIMARY KEY NOT NULL, 
     name varchar(100) UNIQUE NOT NULL, 
-    quantity decimal NOT NULL, 
-    value decimal NOT NULL
+    quantity numeric NOT NULL, 
+    value numeric NOT NULL
 );
 

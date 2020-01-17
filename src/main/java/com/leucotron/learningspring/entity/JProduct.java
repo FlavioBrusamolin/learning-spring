@@ -1,6 +1,7 @@
-package com.leucotron.learningspring.entities;
+package com.leucotron.learningspring.entity;
 
 import java.io.Serializable;
+
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
@@ -28,16 +29,16 @@ public class JProduct implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(unique = true)
     @NotBlank
     @Size(max = 100)
     private String name;
-    
+
     @NotNull
     @PositiveOrZero
     private Long quantity;
-    
+
     @NotNull
     @PositiveOrZero
     private BigDecimal value;

@@ -2,26 +2,22 @@ package com.leucotron.learningspring.response.error;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityExistsException;
-
 import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  *
  * @author flavio
  */
+import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 public class JExceptionHandler extends ResponseEntityExceptionHandler {
 

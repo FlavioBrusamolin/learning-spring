@@ -1,7 +1,10 @@
-/**
- * Author:  flavio
- * Created: 13/01/2020
-*/
+CREATE TABLE "user" ( 
+    id bigserial PRIMARY KEY NOT NULL, 
+    name varchar(100) NOT NULL, 
+    email varchar(100) UNIQUE NOT NULL,
+    password varchar(100) NOT NULL,  
+    profile varchar(100) NOT NULL
+);
 
 CREATE TABLE product ( 
     id bigserial PRIMARY KEY NOT NULL, 
@@ -9,4 +12,3 @@ CREATE TABLE product (
     quantity bigint NOT NULL, 
     value numeric NOT NULL
 );
-

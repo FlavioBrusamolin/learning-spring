@@ -1,8 +1,8 @@
 package com.leucotron.learningspring.controller;
 
-import com.leucotron.learningspring.dto.JProductDTO;
+import com.leucotron.learningspring.dto.JUserDTO;
 import com.leucotron.learningspring.response.JSuccessResponse;
-import com.leucotron.learningspring.service.IProductService;
+import com.leucotron.learningspring.service.IUserService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,44 +22,44 @@ import org.springframework.web.bind.annotation.RestController;
  * @author flavio
  */
 @RestController
-@RequestMapping(value = "/api/v1/products")
-public class JProductController {
+@RequestMapping(value = "/api/v1/users")
+public class JUserController {
 
     @Autowired
-    private IProductService productService;
+    private IUserService userService;
 
     @GetMapping()
     public ResponseEntity<JSuccessResponse> list() {
-        List<JProductDTO> data = productService.list();
-        JSuccessResponse response = new JSuccessResponse("Products found", data);
+        List<JUserDTO> data = userService.list();
+        JSuccessResponse response = new JSuccessResponse("Users found", data);
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<JSuccessResponse> find(@PathVariable(value = "id") Long id) {
-        JProductDTO data = productService.find(id);
-        JSuccessResponse response = new JSuccessResponse("Product found", data);
+        JUserDTO data = userService.find(id);
+        JSuccessResponse response = new JSuccessResponse("User found", data);
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<JSuccessResponse> store(@Valid @RequestBody JProductDTO dto) {
-        JProductDTO data = productService.store(dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully created product", data);
+    public ResponseEntity<JSuccessResponse> store(@Valid @RequestBody JUserDTO dto) {
+        JUserDTO data = userService.store(dto);
+        JSuccessResponse response = new JSuccessResponse("Successfully created user", data);
         return buildResponseEntity(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<JSuccessResponse> delete(@PathVariable(value = "id") Long id) {
-        JProductDTO data = productService.delete(id);
-        JSuccessResponse response = new JSuccessResponse("Successfully deleted product", data);
+        JUserDTO data = userService.delete(id);
+        JSuccessResponse response = new JSuccessResponse("Successfully deleted user", data);
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<JSuccessResponse> update(@PathVariable(value = "id") Long id, @Valid @RequestBody JProductDTO dto) {
-        JProductDTO data = productService.update(id, dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully updated product", data);
+    public ResponseEntity<JSuccessResponse> update(@PathVariable(value = "id") Long id, @Valid @RequestBody JUserDTO dto) {
+        JUserDTO data = userService.update(id, dto);
+        JSuccessResponse response = new JSuccessResponse("Successfully updated user", data);
         return buildResponseEntity(response, HttpStatus.OK);
     }
 

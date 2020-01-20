@@ -1,8 +1,7 @@
 package com.leucotron.learningspring.response.error;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import java.util.ArrayList;
 
 /**
  *

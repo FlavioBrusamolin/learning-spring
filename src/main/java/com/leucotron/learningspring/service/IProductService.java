@@ -1,8 +1,7 @@
 package com.leucotron.learningspring.service;
 
-import java.util.List;
-
 import com.leucotron.learningspring.dto.JProductDTO;
+import java.util.List;
 
 /**
  *

@@ -1,20 +1,17 @@
 package com.leucotron.learningspring.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.leucotron.learningspring.util.JObjectMapper;
-
-import javax.persistence.EntityNotFoundException;
-
+import com.leucotron.learningspring.dto.JProductDTO;
 import com.leucotron.learningspring.entity.JProduct;
 import com.leucotron.learningspring.repository.IProductRepository;
 import com.leucotron.learningspring.service.IProductService;
-import com.leucotron.learningspring.dto.JProductDTO;
+import com.leucotron.learningspring.util.JObjectMapper;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -72,7 +69,7 @@ public class JProductService implements IProductService {
     private void validateConstraints(JProductDTO dto) {
         Optional<JProduct> product = productRepository.findByName(dto.getName());
 
-        if (product.isPresent()) {
+        if (product.isPresent() && !Objects.equals(product.get().getId(), dto.getId())) {
             throw new EntityExistsException("Product name already exists");
         }
     }

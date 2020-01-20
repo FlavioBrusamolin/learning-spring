@@ -1,13 +1,11 @@
 package com.leucotron.learningspring.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
@@ -42,20 +40,20 @@ public class JProductDTO {
         return name;
     }
 
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public BigDecimal getValue() {
-        return value;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    public Long getQuantity() {
+        return quantity;
+    }
+
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getValue() {
+        return value;
     }
 
     public void setValue(BigDecimal value) {

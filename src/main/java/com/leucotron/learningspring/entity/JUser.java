@@ -1,16 +1,18 @@
 package com.leucotron.learningspring.entity;
 
+import com.leucotron.learningspring.enums.EProfile;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,8 +20,8 @@ import javax.validation.constraints.Size;
  * @author flavio
  */
 @Entity
-@Table(name = "product")
-public class JProduct implements Serializable {
+@Table(name = "\"user\"")
+public class JUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,18 +29,23 @@ public class JProduct implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     @NotBlank
     @Size(max = 100)
     private String name;
 
-    @NotNull
-    @PositiveOrZero
-    private Long quantity;
+    @Column(unique = true)
+    @NotBlank
+    @Size(max = 100)
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(min = 6, max = 100)
+    private String password;
 
     @NotNull
-    @PositiveOrZero
-    private BigDecimal value;
+    @Enumerated(EnumType.STRING)
+    private EProfile profile;
 
     public Long getId() {
         return id;
@@ -56,20 +63,28 @@ public class JProduct implements Serializable {
         this.name = name;
     }
 
-    public Long getQuantity() {
-        return quantity;
+    public String getEmail() {
+        return email;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public String getPassword() {
+        return password;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public EProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(EProfile profile) {
+        this.profile = profile;
     }
 
 }

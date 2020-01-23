@@ -6,11 +6,11 @@ import com.leucotron.learningspring.repository.IUserRepository;
 import com.leucotron.learningspring.service.IUserService;
 import com.leucotron.learningspring.util.JObjectMapper;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +22,9 @@ public class JUserService implements IUserService {
 
     @Autowired
     private IUserRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<JUserDTO> list() {
@@ -45,6 +48,8 @@ public class JUserService implements IUserService {
         validateConstraints(dto);
 
         JUser user = JObjectMapper.map(dto, JUser.class);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        
         return JObjectMapper.map(userRepository.save(user), JUserDTO.class);
     }
 
@@ -60,6 +65,7 @@ public class JUserService implements IUserService {
         JUserDTO user = find(id);
 
         user.setName(dto.getName());
+        user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setProfile(dto.getProfile());
@@ -68,9 +74,11 @@ public class JUserService implements IUserService {
     }
 
     private void validateConstraints(JUserDTO dto) {
-        Optional<JUser> user = userRepository.findByEmail(dto.getEmail());
+        if (userRepository.existsByUsername(dto.getUsername())) {
+            throw new EntityExistsException("Username already exists");
+        }
 
-        if (user.isPresent() && !Objects.equals(user.get().getId(), dto.getId())) {
+        if (userRepository.existsByEmail(dto.getEmail())) {
             throw new EntityExistsException("User email already exists");
         }
     }

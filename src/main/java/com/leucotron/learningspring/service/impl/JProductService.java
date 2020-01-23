@@ -6,7 +6,6 @@ import com.leucotron.learningspring.repository.IProductRepository;
 import com.leucotron.learningspring.service.IProductService;
 import com.leucotron.learningspring.util.JObjectMapper;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -67,9 +66,7 @@ public class JProductService implements IProductService {
     }
 
     private void validateConstraints(JProductDTO dto) {
-        Optional<JProduct> product = productRepository.findByName(dto.getName());
-
-        if (product.isPresent() && !Objects.equals(product.get().getId(), dto.getId())) {
+        if (productRepository.existsByName(dto.getName())) {
             throw new EntityExistsException("Product name already exists");
         }
     }

@@ -1,6 +1,7 @@
 package com.leucotron.learningspring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 import java.math.BigDecimal;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Size;
  *
  * @author flavio
  */
+@ApiModel(value = "Product")
 public class JProductDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

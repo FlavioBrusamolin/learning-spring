@@ -12,12 +12,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityExistsException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  *
  * @author flavio
  */
-import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 public class JExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -38,7 +39,22 @@ public class JExceptionHandler extends ResponseEntityExceptionHandler {
         JErrorResponse response = new JErrorResponse();
         response.setErrors(errors);
 
-        return buildResponseEntity(response, HttpStatus.BAD_REQUEST);
+        return buildResponseEntity(response, status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
+            HttpRequestMethodNotSupportedException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+
+        JError error = new JError("Method Not Allowed", ex.getMessage());
+
+        JErrorResponse response = new JErrorResponse();
+        response.addError(error);
+
+        return buildResponseEntity(response, status);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -74,4 +90,5 @@ public class JExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> buildResponseEntity(JErrorResponse response, HttpStatus status) {
         return ResponseEntity.status(status).body(response);
     }
+
 }

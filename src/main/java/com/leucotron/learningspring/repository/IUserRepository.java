@@ -10,6 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface IUserRepository extends JpaRepository<JUser, Long> {
 
-    public Optional<JUser> findByEmail(String email);
+    public Boolean existsByUsername(String username);
+
+    public Boolean existsByEmail(String email);
+    
+    public Optional<JUser> findByUsername(String username);
 
 }

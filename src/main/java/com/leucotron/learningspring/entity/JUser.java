@@ -1,6 +1,6 @@
 package com.leucotron.learningspring.entity;
 
-import com.leucotron.learningspring.enums.EProfile;
+import com.leucotron.learningspring.enumeration.EProfile;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +36,11 @@ public class JUser implements Serializable {
     @Column(unique = true)
     @NotBlank
     @Size(max = 100)
+    private String username;
+
+    @Column(unique = true)
+    @NotBlank
+    @Size(max = 100)
     @Email
     private String email;
 
@@ -61,6 +66,14 @@ public class JUser implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

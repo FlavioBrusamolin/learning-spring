@@ -1,7 +1,8 @@
 package com.leucotron.learningspring.dto;
 
-import com.leucotron.learningspring.enums.EProfile;
+import com.leucotron.learningspring.enumeration.EProfile;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
@@ -13,14 +14,19 @@ import javax.validation.constraints.Size;
  *
  * @author flavio
  */
+@ApiModel(value = "User")
 public class JUserDTO {
-
+    
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name cannot exceed 100 characters")
     private String name;
+
+    @NotBlank(message = "Username is required")
+    @Size(max = 100, message = "Username cannot exceed 100 characters")
+    private String username;
 
     @NotBlank(message = "Email is required")
     @Size(max = 100, message = "Email cannot exceed 100 characters")
@@ -31,7 +37,7 @@ public class JUserDTO {
     @NotBlank(message = "Password is required")
     @Size(min = 6, max = 100, message = "Password must be at least 6 characters and cannot exceed 100 characters")
     private String password;
-    
+
     @NotNull(message = "Profile is required")
     @Enumerated(EnumType.STRING)
     private EProfile profile;
@@ -50,6 +56,14 @@ public class JUserDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

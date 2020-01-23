@@ -1,10 +1,13 @@
 package com.leucotron.learningspring.response;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  *
  * @author flavio
  * @param <T>
  */
+@ApiModel(value = "Response")
 public class JSuccessResponse<T> {
 
     private final Boolean success = Boolean.TRUE;

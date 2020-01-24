@@ -1,7 +1,6 @@
 package com.leucotron.learningspring.repository;
 
 import com.leucotron.learningspring.entity.JUser;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,6 +13,6 @@ public interface IUserRepository extends JpaRepository<JUser, Long> {
 
     public Boolean existsByEmail(String email);
     
-    public Optional<JUser> findByUsername(String username);
+    public JUser findByUsername(String username);
 
 }

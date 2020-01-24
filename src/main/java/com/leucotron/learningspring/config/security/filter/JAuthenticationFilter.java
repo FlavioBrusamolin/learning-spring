@@ -62,12 +62,11 @@ public class JAuthenticationFilter extends UsernamePasswordAuthenticationFilter 
                 .signWith(SignatureAlgorithm.HS512, JSecurityConstants.JWT_SECRET)
                 .compact();
 
-        var responseObject = new JSuccessResponse("Successful login", token);
+        var responseBody = new JSuccessResponse("Successful login");
+        responseBody.setData("token", token);
 
         response.setContentType("application/json");
-        new ObjectMapper().writeValue(response.getWriter(), responseObject);
-
-//        response.addHeader(JSecurityConstants.TOKEN_HEADER, JSecurityConstants.TOKEN_PREFIX + token);
+        new ObjectMapper().writeValue(response.getWriter(), responseBody);
     }
 
 }

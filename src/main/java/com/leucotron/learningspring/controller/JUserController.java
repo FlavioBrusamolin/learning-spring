@@ -36,7 +36,10 @@ public class JUserController {
     @GetMapping()
     public ResponseEntity<JSuccessResponse> list() {
         List<JUserDTO> data = userService.list();
-        JSuccessResponse response = new JSuccessResponse("Users found", data);
+        
+        JSuccessResponse response = new JSuccessResponse("Users found");
+        response.setData("users", data);
+        
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
@@ -44,7 +47,10 @@ public class JUserController {
     @GetMapping("/{id}")
     public ResponseEntity<JSuccessResponse> find(@PathVariable(value = "id") Long id) {
         JUserDTO data = userService.find(id);
-        JSuccessResponse response = new JSuccessResponse("User found", data);
+        
+        JSuccessResponse response = new JSuccessResponse("User found");
+        response.setData("user", data);
+        
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
@@ -54,7 +60,10 @@ public class JUserController {
             @ApiParam(name = "User", value = "User data.") @Valid @RequestBody JUserDTO dto) {
         
         JUserDTO data = userService.store(dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully created user", data);
+        
+        JSuccessResponse response = new JSuccessResponse("Successfully created user");
+        response.setData("user", data);
+        
         return buildResponseEntity(response, HttpStatus.CREATED);
     }
 
@@ -62,7 +71,10 @@ public class JUserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<JSuccessResponse> delete(@PathVariable(value = "id") Long id) {
         JUserDTO data = userService.delete(id);
-        JSuccessResponse response = new JSuccessResponse("Successfully deleted user", data);
+        
+        JSuccessResponse response = new JSuccessResponse("Successfully deleted user");
+        response.setData("user", data);
+        
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
@@ -73,7 +85,10 @@ public class JUserController {
             @ApiParam(name = "User", value = "New user data.") @Valid @RequestBody JUserDTO dto) {
         
         JUserDTO data = userService.update(id, dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully updated user", data);
+        
+        JSuccessResponse response = new JSuccessResponse("Successfully updated user");
+        response.setData("user", data);
+        
         return buildResponseEntity(response, HttpStatus.OK);
     }
 

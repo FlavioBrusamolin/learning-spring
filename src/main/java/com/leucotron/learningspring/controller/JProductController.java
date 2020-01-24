@@ -36,7 +36,10 @@ public class JProductController {
     @GetMapping()
     public ResponseEntity<JSuccessResponse> list() {
         List<JProductDTO> data = productService.list();
-        JSuccessResponse response = new JSuccessResponse("Products found", data);
+
+        JSuccessResponse response = new JSuccessResponse("Products found");
+        response.setData("products", data);
+
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
@@ -44,7 +47,10 @@ public class JProductController {
     @GetMapping("/{id}")
     public ResponseEntity<JSuccessResponse> find(@PathVariable(value = "id") Long id) {
         JProductDTO data = productService.find(id);
-        JSuccessResponse response = new JSuccessResponse("Product found", data);
+
+        JSuccessResponse response = new JSuccessResponse("Product found");
+        response.setData("product", data);
+
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
@@ -52,9 +58,12 @@ public class JProductController {
     @PostMapping()
     public ResponseEntity<JSuccessResponse> store(
             @ApiParam(name = "Product", value = "Product data.") @Valid @RequestBody JProductDTO dto) {
-        
+
         JProductDTO data = productService.store(dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully created product", data);
+
+        JSuccessResponse response = new JSuccessResponse("Successfully created product");
+        response.setData("product", data);
+
         return buildResponseEntity(response, HttpStatus.CREATED);
     }
 
@@ -62,18 +71,24 @@ public class JProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<JSuccessResponse> delete(@PathVariable(value = "id") Long id) {
         JProductDTO data = productService.delete(id);
-        JSuccessResponse response = new JSuccessResponse("Successfully deleted product", data);
+
+        JSuccessResponse response = new JSuccessResponse("Successfully deleted product");
+        response.setData("product", data);
+
         return buildResponseEntity(response, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Update a product by id.")
     @PutMapping("/{id}")
     public ResponseEntity<JSuccessResponse> update(
-            @PathVariable(value = "id") Long id, 
+            @PathVariable(value = "id") Long id,
             @ApiParam(name = "Product", value = "New product data.") @Valid @RequestBody JProductDTO dto) {
-        
+
         JProductDTO data = productService.update(id, dto);
-        JSuccessResponse response = new JSuccessResponse("Successfully updated product", data);
+
+        JSuccessResponse response = new JSuccessResponse("Successfully updated product");
+        response.setData("product", data);
+
         return buildResponseEntity(response, HttpStatus.OK);
     }
 

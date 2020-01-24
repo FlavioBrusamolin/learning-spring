@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class JUserController {
     private IUserService userService;
 
     @ApiOperation(value = "Returns registered users.")
+    @Secured("ROLE_ADMIN")
     @GetMapping()
     public ResponseEntity<JSuccessResponse> list() {
         List<JUserDTO> data = userService.list();
@@ -42,8 +44,9 @@ public class JUserController {
         
         return buildResponseEntity(response, HttpStatus.OK);
     }
-
+    
     @ApiOperation(value = "Returns a user by id.")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/{id}")
     public ResponseEntity<JSuccessResponse> find(@PathVariable(value = "id") Long id) {
         JUserDTO data = userService.find(id);
@@ -55,6 +58,7 @@ public class JUserController {
     }
 
     @ApiOperation(value = "Add a new user.")
+    @Secured("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<JSuccessResponse> store(
             @ApiParam(name = "User", value = "User data.") @Valid @RequestBody JUserDTO dto) {
@@ -68,6 +72,7 @@ public class JUserController {
     }
 
     @ApiOperation(value = "Delete a user by id.")
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<JSuccessResponse> delete(@PathVariable(value = "id") Long id) {
         JUserDTO data = userService.delete(id);
@@ -79,6 +84,7 @@ public class JUserController {
     }
 
     @ApiOperation(value = "Update a user by id.")
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{id}")
     public ResponseEntity<JSuccessResponse> update(
             @PathVariable(value = "id") Long id,

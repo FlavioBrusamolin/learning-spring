@@ -6,7 +6,7 @@ package com.leucotron.learningspring.enumeration;
  */
 public enum EProfile {
 
-    ADMIN,
-    USER;
+    ROLE_ADMIN,
+    ROLE_USER;
 
 }

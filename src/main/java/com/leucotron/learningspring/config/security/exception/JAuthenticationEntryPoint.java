@@ -22,7 +22,7 @@ public class JAuthenticationEntryPoint implements AuthenticationEntryPoint, Seri
             HttpServletResponse response,
             AuthenticationException ex) throws IOException, ServletException {
         
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unathorized");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
     }
 
 }

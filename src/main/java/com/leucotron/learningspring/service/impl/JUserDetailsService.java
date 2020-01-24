@@ -3,8 +3,9 @@ package com.leucotron.learningspring.service.impl;
 import com.leucotron.learningspring.entity.JUser;
 import com.leucotron.learningspring.repository.IUserRepository;
 import java.util.ArrayList;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,7 +30,13 @@ public class JUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
+        var authorities = new ArrayList<GrantedAuthority>() {
+            {
+                add(new SimpleGrantedAuthority(user.getProfile().name()));
+            }
+        };
+
+        return new User(user.getUsername(), user.getPassword(), authorities);
     }
 
 }

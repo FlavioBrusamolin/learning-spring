@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class JProductController {
     private IProductService productService;
 
     @ApiOperation(value = "Returns registered products.")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     public ResponseEntity<JSuccessResponse> list() {
         List<JProductDTO> data = productService.list();
@@ -44,6 +46,7 @@ public class JProductController {
     }
 
     @ApiOperation(value = "Returns a product by id.")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<JSuccessResponse> find(@PathVariable(value = "id") Long id) {
         JProductDTO data = productService.find(id);
@@ -55,6 +58,7 @@ public class JProductController {
     }
 
     @ApiOperation(value = "Add a new product.")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping()
     public ResponseEntity<JSuccessResponse> store(
             @ApiParam(name = "Product", value = "Product data.") @Valid @RequestBody JProductDTO dto) {
@@ -68,6 +72,7 @@ public class JProductController {
     }
 
     @ApiOperation(value = "Delete a product by id.")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<JSuccessResponse> delete(@PathVariable(value = "id") Long id) {
         JProductDTO data = productService.delete(id);
@@ -79,6 +84,7 @@ public class JProductController {
     }
 
     @ApiOperation(value = "Update a product by id.")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping("/{id}")
     public ResponseEntity<JSuccessResponse> update(
             @PathVariable(value = "id") Long id,

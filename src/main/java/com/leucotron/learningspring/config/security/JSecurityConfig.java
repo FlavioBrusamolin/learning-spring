@@ -1,14 +1,13 @@
 package com.leucotron.learningspring.config.security;
 
-import com.leucotron.learningspring.config.security.exception.JAuthenticationEntryPoint;
-import com.leucotron.learningspring.config.security.exception.JAccessDeniedException;
+import com.leucotron.learningspring.config.security.failure.JAuthenticationEntryPoint;
+import com.leucotron.learningspring.config.security.failure.JAccessDeniedException;
 import com.leucotron.learningspring.config.security.filter.JAuthorizationFilter;
 import com.leucotron.learningspring.config.security.filter.JAuthenticationFilter;
-import com.leucotron.learningspring.service.impl.JUserDetailsService;
+import com.leucotron.learningspring.config.security.service.JUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

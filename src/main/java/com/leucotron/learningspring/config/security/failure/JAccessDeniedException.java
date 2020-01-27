@@ -1,4 +1,4 @@
-package com.leucotron.learningspring.config.security.exception;
+package com.leucotron.learningspring.config.security.failure;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

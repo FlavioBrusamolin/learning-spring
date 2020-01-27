@@ -2,13 +2,13 @@ package com.leucotron.learningspring.service.impl;
 
 import com.leucotron.learningspring.dto.JUserDTO;
 import com.leucotron.learningspring.entity.JUser;
+import com.leucotron.learningspring.exception.JDuplicateEntityException;
+import com.leucotron.learningspring.exception.JResourceNotFoundException;
 import com.leucotron.learningspring.repository.IUserRepository;
 import com.leucotron.learningspring.service.IUserService;
 import com.leucotron.learningspring.util.JObjectMapper;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class JUserService implements IUserService {
         Optional<JUser> user = userRepository.findById(id);
 
         if (!user.isPresent()) {
-            throw new EntityNotFoundException("Unable to find user id");
+            throw new JResourceNotFoundException("Unable to find user id");
         }
 
         return JObjectMapper.map(user.get(), JUserDTO.class);
@@ -75,11 +75,11 @@ public class JUserService implements IUserService {
 
     private void validateConstraints(JUserDTO dto) {
         if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new EntityExistsException("Username already exists");
+            throw new JDuplicateEntityException("Username already exists");
         }
 
         if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new EntityExistsException("User email already exists");
+            throw new JDuplicateEntityException("User email already exists");
         }
     }
 

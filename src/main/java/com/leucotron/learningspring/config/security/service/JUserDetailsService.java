@@ -1,4 +1,4 @@
-package com.leucotron.learningspring.service.impl;
+package com.leucotron.learningspring.config.security.service;
 
 import com.leucotron.learningspring.entity.JUser;
 import com.leucotron.learningspring.repository.IUserRepository;

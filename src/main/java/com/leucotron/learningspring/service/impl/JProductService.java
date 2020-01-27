@@ -2,13 +2,13 @@ package com.leucotron.learningspring.service.impl;
 
 import com.leucotron.learningspring.dto.JProductDTO;
 import com.leucotron.learningspring.entity.JProduct;
+import com.leucotron.learningspring.exception.JDuplicateEntityException;
+import com.leucotron.learningspring.exception.JResourceNotFoundException;
 import com.leucotron.learningspring.repository.IProductRepository;
 import com.leucotron.learningspring.service.IProductService;
 import com.leucotron.learningspring.util.JObjectMapper;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class JProductService implements IProductService {
         Optional<JProduct> product = productRepository.findById(id);
 
         if (!product.isPresent()) {
-            throw new EntityNotFoundException("Unable to find product id");
+            throw new JResourceNotFoundException("Unable to find product id");
         }
 
         return JObjectMapper.map(product.get(), JProductDTO.class);
@@ -67,7 +67,7 @@ public class JProductService implements IProductService {
 
     private void validateConstraints(JProductDTO dto) {
         if (productRepository.existsByName(dto.getName())) {
-            throw new EntityExistsException("Product name already exists");
+            throw new JDuplicateEntityException("Product name already exists");
         }
     }
 

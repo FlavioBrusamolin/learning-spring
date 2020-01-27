@@ -1,5 +1,9 @@
-package com.leucotron.learningspring.response.error;
+package com.leucotron.learningspring.exception.resolver;
 
+import com.leucotron.learningspring.exception.JDuplicateEntityException;
+import com.leucotron.learningspring.exception.JResourceNotFoundException;
+import com.leucotron.learningspring.response.error.JError;
+import com.leucotron.learningspring.response.error.JErrorResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpHeaders;
@@ -9,8 +13,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.EntityExistsException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author flavio
  */
 @RestControllerAdvice
-public class JExceptionHandler extends ResponseEntityExceptionHandler {
+public class JGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -57,8 +59,18 @@ public class JExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(response, status);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        JError error = new JError("Database constraints violation", ex.getMostSpecificCause().getMessage());
+
+        JErrorResponse response = new JErrorResponse();
+        response.addError(error);
+
+        return buildResponseEntity(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(JResourceNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFound(JResourceNotFoundException ex) {
         JError error = new JError("Resource not found", ex.getMessage());
 
         JErrorResponse response = new JErrorResponse();
@@ -67,19 +79,9 @@ public class JExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(EntityExistsException.class)
-    protected ResponseEntity<Object> handleEntityExists(EntityExistsException ex) {
+    @ExceptionHandler(JDuplicateEntityException.class)
+    protected ResponseEntity<Object> handleDuplicateEntity(JDuplicateEntityException ex) {
         JError error = new JError("Duplicate entity", ex.getMessage());
-
-        JErrorResponse response = new JErrorResponse();
-        response.addError(error);
-
-        return buildResponseEntity(response, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    protected ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        JError error = new JError("Database constraints violation", ex.getMostSpecificCause().getMessage());
 
         JErrorResponse response = new JErrorResponse();
         response.addError(error);
